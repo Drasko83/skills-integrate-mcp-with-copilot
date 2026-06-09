@@ -31,6 +31,7 @@ A super simple FastAPI application that allows students to view and sign up for 
 | ------ | ----------------------------------------------------------------- | ------------------------------------------------------------------- |
 | GET    | `/activities`                                                     | Get all activities with their details and current participant count |
 | POST   | `/activities/{activity_name}/signup?email=student@mergington.edu` | Sign up for an activity                                             |
+| DELETE | `/activities/{activity_name}/unregister?email=student@mergington.edu` | Unregister a student from an activity                            |
 
 ## Data Model
 
@@ -47,4 +48,13 @@ The application uses a simple data model with meaningful identifiers:
    - Name
    - Grade level
 
-All data is stored in memory, which means data will be reset when the server restarts.
+## Persistence and Migrations
+
+This app now uses a SQLite database at `src/data/activities.db`.
+
+- Data persists across server restarts.
+- SQL migrations are stored in `src/migrations`.
+- Migrations are applied automatically when the API starts.
+- Initial activity/enrollment data is seeded only when the database is empty.
+
+If you need a clean reset while developing, delete `src/data/activities.db` and restart the server.
